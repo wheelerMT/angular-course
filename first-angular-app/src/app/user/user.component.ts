@@ -8,16 +8,20 @@ import { Component, output, computed, input } from '@angular/core';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  id = input.required<string>();
-  avatar = input.required<string>();
-  name = input.required<string>();
+  user = input.required<User>();
   select = output<string>();
 
   imagePath = computed(() => {
-    return 'assets/users/' + this.avatar();
+    return 'assets/users/' + this.user().avatar;
   });
 
   onSelectUser() {
-    this.select.emit(this.id());
+    this.select.emit(this.user().id);
   }
+}
+
+interface User {
+  id: string;
+  avatar: string;
+  name: string;
 }
